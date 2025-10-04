@@ -19,5 +19,7 @@ module.exports = app;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
+    console.log("✅ New version deployed successfully at", new Date().toLocaleString());
+
   });
 }
