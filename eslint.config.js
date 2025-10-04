@@ -1,10 +1,21 @@
-const js = require("@eslint/js");
-const prettier = require("eslint-config-prettier");
+import js from "@eslint/js";
+import globals from "globals";
+import prettier from "eslint-config-prettier";
 
-module.exports = [
+export default [
+  
   js.configs.recommended,
   prettier,
+
+ 
   {
+    languageOptions: {
+      globals: {
+        ...globals.node,      
+        ...globals.browser,  
+        ...globals.jest,      
+      },
+    },
     rules: {
       semi: "error",
       quotes: ["error", "double"],
