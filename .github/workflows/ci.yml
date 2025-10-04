@@ -1,40 +1,40 @@
-name: CI Pipeline
+name: build-test-docker
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build-test-docker:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint code
-        run: npx eslint .
+      # ✅ Step 1: Run ESLint and auto-fix style issues
+      - name: Run ESLint auto-fix
+        run: npx eslint . --fix
 
-      - name: Check Prettier formatting
-        run: npx prettier --check .
+      # ✅ Step 2: Run Prettier and auto-format code
+      - name: Run Prettier auto-fix
+        run: npx prettier --write .
 
-      - name: Run tests
+      # ✅ Step 3: Run tests
+      - name: Run Jest tests
         run: npm test
 
+      # ✅ Step 4: Build Docker image
       - name: Build Docker image
-        run: |
-          docker build -t my-node-app:latest .
+        run: docker build -t my-node-app:latest .
 
-      - name: (Optional) Run Docker Compose
-        run: |
-          docker-compose up -d --build
