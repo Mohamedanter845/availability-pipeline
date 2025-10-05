@@ -10,7 +10,7 @@ app.post("/webhook", (req, res) => {
   res.status(200).send("OK");
 
   // Run deploy.sh when webhook is received
-  exec("bash /home/mohamedanter/TeamavailTest/deploy.sh", (error, stdout, stderr) => {
+  exec("bash /home/mohamedanter/TeamavailTest/deploy.sh", (error, stdout) => {
     if (error) {
       console.error(`❌ Error during deployment: ${error.message}`);
       return;
