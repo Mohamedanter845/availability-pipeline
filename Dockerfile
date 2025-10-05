@@ -4,18 +4,18 @@ FROM node:18-slim
 # Create app dir
 WORKDIR /usr/src/app
 
-# Copy package files first (cache)
+# Copy package files first (cache layer)
 COPY package*.json ./
 
-# Install dependencies (production only)
-RUN npm ci --omit=dev
+# Install only production dependencies
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Copy source
+# Copy app source code
 COPY . .
 
-# Expose port
+# Expose app port
 EXPOSE 3000
 
-# Start
+# Start the app
 CMD ["node", "server.js"]
 
