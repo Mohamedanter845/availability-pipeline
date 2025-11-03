@@ -24,12 +24,41 @@ This project showcases a full development and deployment pipeline:
 |   http://localhost:80         | http://backend:4000 |
 +-------------------+           +--------------------+
 |
-v
+
 Docker Compose Network
 
 **Services:**
 - `frontend`: React app served via Nginx
+
+## Frontend
+
+The React frontend provides the user interface and dashboards to visualize application data.
+
+Frontend URL: [http://localhost:80](http://localhost:80)
+
+**Frontend UI Main Page**  
+
+**Dashboard 1**  
+![Dashboard 1](./assets/dashboard1.PNG)
+
+**Dashboard 2**  
+![Dashboard 2](./assets/dashboard2.PNG)
+
+---
 - `backend`: Node.js API server with REST endpoints
+## Backend
+
+The Node.js backend exposes REST endpoints and metrics for monitoring.
+
+Backend API URL: [http://localhost:4000/api/status](http://localhost:4000/api/status)
+
+**Backend Metrics (/metrics)**  
+![Backend Metrics](./assets/api.PNG)
+
+
+
+
+---
 - `ci.sh`: local CI pipeline script
 - `deploy.sh`: deployment automation script
 
@@ -53,11 +82,13 @@ Backend → http://localhost:4000/api/status
 ```bash
 docker-compose down
 
-<div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Frontend UI</b><br> <img src="./assets/api.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Backend /metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Docker Compose running</b><br> <img src="./assets/dockerps.PNG" width="300"/> </div> </div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Frontend UI</b><br> <img src="./assets/dockerps.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Backend /metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Docker Compose running</b><br> <img src="./assets/dockerps.PNG" width="300"/> </div> </div>
 
 -------------------
 ```bash
+
 🔁 CI/CD with GitHub Actions
+
 Pipeline includes:
 ✅ Checkout code
 ⚙️ Setup Node.js
@@ -65,10 +96,10 @@ Pipeline includes:
 🧪 Run tests
 🐳 Build Docker images
 ☁️ Push image to Docker Hub
+![githu UI](./assets/githubaction.PNG)
 
 ````
-<div style="display: flex; gap: 10px;"> <div style="flex: 1;"> <b>GitHub Actions</b><br> <img src="./assets/githubaction.PNG" width="300"/> </div> </div>
-`````````
+-------------------------------------------------
 ```bash
 
 📊 Monitoring (Prometheus + Grafana)
@@ -79,12 +110,13 @@ Grafana visualizes metrics from Prometheus
 
 Dashboards include: HTTP Requests, CPU, Memory, Event Loop Lag
 
-<div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Grafana Dashboard 1</b><br> <img src="./assets/dashboard1.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Grafana Dashboard 2</b><br> <img src="./assets/dashboard2.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Prometheus Metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> </div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Grafana Dashboard 1</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Grafana Dashboard 2</b><br> <img src="./assets/dashboard2.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Prometheus Metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> </div>
 ````
 --------------------------------------
 ```bash
-🧠 Key Learnings
 
+🧠 Key Learnings
+------------------
 Built a multi-service architecture with Docker Compose
 
 Connected services through an internal Docker network
@@ -96,6 +128,7 @@ Managed Docker image publishing via CI/CD
 Integrated Prometheus + Grafana monitoring
 
 Prepared setup for future AWS/GCP deployment
+
 ````````
 ----------------------------------------
 
