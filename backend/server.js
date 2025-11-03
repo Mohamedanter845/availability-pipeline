@@ -1,14 +1,38 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const client = require("prom-client");
 
 const app = express();
+const register = new client.Registry();
 const PORT = process.env.PORT || 4000;
+
+// ✅ Collect default system metrics (CPU, Memory, etc.)
+client.collectDefaultMetrics({ register });
+
+// ✅ Custom metric: count all HTTP requests
+const httpRequestsTotal = new client.Counter({
+  name: "http_requests_total",
+  help: "Total number of HTTP requests received",
+});
+register.registerMetric(httpRequestsTotal);
 
 // ✅ Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+// ✅ Middleware: increment counter for every request
+app.use((req, res, next) => {
+  httpRequestsTotal.inc();
+  next();
+});
+
+// ✅ Prometheus metrics endpoint
+app.get("/metrics", async (req, res) => {
+  res.set("Content-Type", register.contentType);
+  res.end(await register.metrics());
+});
 
 // ✅ Helper function لتوليد أرقام عشوائية
 function getRandomInt(min, max) {
@@ -51,7 +75,7 @@ app.get("/api/deployments", (req, res) => {
   ]);
 });
 
-// ✅ Metrics Endpoint (للداتا الحقيقية بتاعة الـ Dashboard)
+// ✅ Metrics Endpoint (لداتا الـ Dashboard)
 app.get("/api/metrics", (req, res) => {
   const cpuUsage = getRandomInt(25, 80);
   const ramUsage = getRandomInt(40, 90);
