@@ -81,7 +81,7 @@ Backend → http://localhost:4000/api/status
 
 ```bash
 docker-compose down
-
+```
 <div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Frontend UI</b><br> <img src="./assets/dockerps.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Backend /metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Docker Compose running</b><br> <img src="./assets/dockerps.PNG" width="300"/> </div> </div>
 
 -------------------
@@ -96,9 +96,8 @@ Pipeline includes:
 🧪 Run tests
 🐳 Build Docker images
 ☁️ Push image to Docker Hub
-![githu UI](./assets/githubaction.PNG)
-
-````
+```
+![github UI](./assets/githubaction.PNG)
 -------------------------------------------------
 ```bash
 
@@ -109,9 +108,9 @@ Prometheus scrapes backend metrics: http://backend:4000/metrics
 Grafana visualizes metrics from Prometheus
 
 Dashboards include: HTTP Requests, CPU, Memory, Event Loop Lag
+```
+![promethus UI](./assets/promethus.PNG)
 
-<div style="display: flex; gap: 10px; flex-wrap: wrap;"> <div style="flex: 1;"> <b>Grafana Dashboard 1</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Grafana Dashboard 2</b><br> <img src="./assets/dashboard2.PNG" width="300"/> </div> <div style="flex: 1;"> <b>Prometheus Metrics</b><br> <img src="./assets/promethus.PNG" width="300"/> </div> </div>
-````
 --------------------------------------
 ```bash
 
