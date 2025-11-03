@@ -1,12 +1,24 @@
-version: '3.8'
+version: "3.9"
+
 services:
-  app:
-    build: .
+  backend:
+    build: ./backend
+    container_name: teamavail_backend
     ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./:/usr/src/app:delegated
-      - /usr/src/app/node_modules
-    command: npm start
+      - "4000:4000"
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: teamavail_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
